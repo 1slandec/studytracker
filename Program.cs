@@ -24,6 +24,7 @@ builder.Services
         options.Password.RequireUppercase = true;
         options.Password.RequiredLength = 8;
     })
+    .AddErrorDescriber<RussianIdentityErrorDescriber>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 

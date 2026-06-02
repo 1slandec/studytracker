@@ -1,0 +1,28 @@
+@page
+@model GenerateRecoveryCodesModel
+@{
+    ViewData["Title"] = "Создание резервных кодов 2FA";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h3>@ViewData["Title"]</h3>
+<div class="alert alert-warning" role="alert">
+    <p>
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <strong>Сохраните эти коды в надежном месте.</strong>
+    </p>
+    <p>
+        Если вы потеряете устройство и у вас не будет резервных кодов, доступ к аккаунту будет потерян.
+    </p>
+    <p>
+        Создание новых резервных кодов не меняет ключи в приложениях-аутентификаторах. Чтобы сменить ключ,
+        нужно <a asp-page="./ResetAuthenticator">сбросить ключи аутентификатора</a>.
+    </p>
+</div>
+<div>
+    <form method="post">
+        <button class="btn btn-danger" type="submit">Создать резервные коды</button>
+    </form>
+</div>
+

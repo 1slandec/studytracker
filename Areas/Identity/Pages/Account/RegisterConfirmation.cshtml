@@ -1,0 +1,24 @@
+@page
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Подтверждение регистрации";
+}
+
+<h1>@ViewData["Title"]</h1>
+@{
+    if (@Model.DisplayConfirmAccountLink)
+    {
+<p>
+    В приложении не настроена отправка почты. Обычно ссылка приходит на электронную почту:
+    <a id="confirm-link" href="@Model.EmailConfirmationUrl">подтвердить аккаунт</a>
+</p>
+    }
+    else
+    {
+<p>
+        Проверьте почту, чтобы подтвердить аккаунт.
+</p>
+    }
+}
+
+
