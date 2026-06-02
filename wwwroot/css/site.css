@@ -1,0 +1,78 @@
+html {
+  font-size: 14px;
+  position: relative;
+  min-height: 100%;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+body {
+  margin-bottom: 64px;
+  background: #f8fafc;
+}
+
+main {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.navbar {
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem #fff, 0 0 0 0.25rem rgba(37, 99, 235, 0.25);
+}
+
+.form-narrow {
+  max-width: 760px;
+}
+
+.check-column {
+  width: 3rem;
+}
+
+.status-column {
+  min-width: 260px;
+}
+
+.status-select {
+  width: 150px;
+}
+
+.table > :not(caption) > * > * {
+  vertical-align: middle;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+  background: #fff;
+}
+
+@media (max-width: 767.98px) {
+  main {
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+    padding: 1rem;
+  }
+
+  .status-column {
+    min-width: 220px;
+  }
+}

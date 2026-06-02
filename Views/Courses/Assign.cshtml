@@ -1,0 +1,55 @@
+@model AssignCourseViewModel
+
+@{
+    ViewData["Title"] = "Назначение студентов";
+}
+
+<partial name="_Alerts" />
+
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+    <div>
+        <a class="small text-decoration-none" asp-action="Details" asp-route-id="@Model.CourseId">Назад к курсу</a>
+        <h1 class="h3 mt-2 mb-0">Назначение студентов</h1>
+        <div class="text-muted">@Model.CourseName</div>
+    </div>
+</div>
+
+<form asp-action="Assign" asp-route-id="@Model.CourseId" method="post">
+    <input type="hidden" asp-for="CourseId" />
+    <div class="table-responsive mb-3">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th class="check-column"></th>
+                    <th>Студент</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+            @if (Model.Students.Count == 0)
+            {
+                <tr>
+                    <td colspan="3" class="text-muted">Студенты не найдены.</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var student in Model.Students)
+                {
+                    <tr>
+                        <td>
+                            <input class="form-check-input" type="checkbox" name="SelectedStudentIds" value="@student.StudentId" checked="@student.IsAssigned" />
+                        </td>
+                        <td>@student.FullName</td>
+                        <td>@student.Email</td>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Сохранить назначения</button>
+        <a class="btn btn-outline-secondary" asp-action="Details" asp-route-id="@Model.CourseId">Отмена</a>
+    </div>
+</form>

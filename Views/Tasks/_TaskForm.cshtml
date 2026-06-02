@@ -1,0 +1,39 @@
+@model StudyTaskFormViewModel
+
+<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+<input type="hidden" asp-for="Id" />
+<input type="hidden" asp-for="CourseId" />
+<div class="mb-3">
+    <label asp-for="Title" class="form-label"></label>
+    <input asp-for="Title" class="form-control" />
+    <span asp-validation-for="Title" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="Description" class="form-label"></label>
+    <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+    <span asp-validation-for="Description" class="text-danger"></span>
+</div>
+<div class="row g-3">
+    <div class="col-md-6">
+        <label asp-for="Deadline" class="form-label"></label>
+        <input asp-for="Deadline" class="form-control" />
+        <span asp-validation-for="Deadline" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Status" class="form-label"></label>
+        <select asp-for="Status" class="form-select">
+            @foreach (var status in Enum.GetValues<TaskStatusType>())
+            {
+                if (Model.Status == status)
+                {
+                    <option value="@status" selected>@status.ToDisplayName()</option>
+                }
+                else
+                {
+                    <option value="@status">@status.ToDisplayName()</option>
+                }
+            }
+        </select>
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+</div>

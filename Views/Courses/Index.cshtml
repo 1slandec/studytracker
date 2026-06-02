@@ -1,0 +1,64 @@
+@model CourseListViewModel
+
+@{
+    ViewData["Title"] = "Курсы";
+}
+
+<partial name="_Alerts" />
+
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+    <div>
+        <h1 class="h3 mb-1">Курсы</h1>
+        <p class="text-muted mb-0">Учебные курсы и количество заданий по каждому курсу.</p>
+    </div>
+    @if (Model.CanManageCourses)
+    {
+        <a class="btn btn-primary" asp-action="Create">Создать курс</a>
+    }
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Преподаватель</th>
+                <th>Заданий</th>
+                <th class="text-end">Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+        @if (Model.Courses.Count == 0)
+        {
+            <tr>
+                <td colspan="4" class="text-muted">Курсов пока нет.</td>
+            </tr>
+        }
+        else
+        {
+            foreach (var course in Model.Courses)
+            {
+                <tr>
+                    <td>
+                        <div class="fw-semibold">@course.Name</div>
+                        <div class="text-muted small">@course.Description</div>
+                    </td>
+                    <td>@course.ProfessorName</td>
+                    <td>@course.TaskCount</td>
+                    <td class="text-end">
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Действия курса">
+                            <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@course.Id">Открыть</a>
+                            @if (Model.CanManageCourses)
+                            {
+                                <a class="btn btn-outline-secondary" asp-action="Assign" asp-route-id="@course.Id">Студенты</a>
+                                <a class="btn btn-outline-secondary" asp-action="Edit" asp-route-id="@course.Id">Изменить</a>
+                                <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@course.Id">Удалить</a>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>

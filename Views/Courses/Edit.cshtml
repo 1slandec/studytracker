@@ -1,0 +1,20 @@
+@model CourseFormViewModel
+
+@{
+    ViewData["Title"] = "Редактирование курса";
+}
+
+<h1 class="h3 mb-3">Редактирование курса</h1>
+
+<form asp-action="Edit" asp-route-id="@Model.Id" method="post" class="form-narrow">
+    <input type="hidden" asp-for="Id" />
+    <partial name="_CourseForm" model="Model" />
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a class="btn btn-outline-secondary" asp-action="Details" asp-route-id="@Model.Id">Отмена</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

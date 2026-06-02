@@ -1,0 +1,23 @@
+@model StudyTaskFormViewModel
+
+@{
+    ViewData["Title"] = "Создание задания";
+}
+
+<div class="mb-3">
+    <a class="small text-decoration-none" asp-action="Index" asp-route-courseId="@Model.CourseId">Назад к заданиям</a>
+    <h1 class="h3 mt-2 mb-0">Создание задания</h1>
+    <div class="text-muted">@Model.CourseName</div>
+</div>
+
+<form asp-action="Create" method="post" class="form-narrow">
+    <partial name="_TaskForm" model="Model" />
+    <div class="d-flex gap-2 mt-3">
+        <button type="submit" class="btn btn-primary">Создать</button>
+        <a class="btn btn-outline-secondary" asp-action="Index" asp-route-courseId="@Model.CourseId">Отмена</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

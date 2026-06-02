@@ -1,0 +1,70 @@
+@model CourseDetailsViewModel
+
+@{
+    ViewData["Title"] = Model.Course.Name;
+}
+
+<partial name="_Alerts" />
+
+<div class="d-flex flex-wrap align-items-start justify-content-between gap-3 mb-4">
+    <div>
+        <a class="small text-decoration-none" asp-action="Index">Назад к курсам</a>
+        <h1 class="h3 mt-2 mb-1">@Model.Course.Name</h1>
+        <p class="mb-1">@Model.Course.Description</p>
+        <div class="text-muted">Преподаватель: @Model.Course.ProfessorName</div>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a class="btn btn-outline-primary" asp-controller="Tasks" asp-action="Index" asp-route-courseId="@Model.Course.Id">Все задания</a>
+        @if (Model.CanExportTasks)
+        {
+            <a class="btn btn-outline-secondary" asp-controller="Reports" asp-action="CourseTasks" asp-route-courseId="@Model.Course.Id" asp-route-format="docx">DOCX</a>
+            <a class="btn btn-outline-secondary" asp-controller="Reports" asp-action="CourseTasks" asp-route-courseId="@Model.Course.Id" asp-route-format="xlsx">XLSX</a>
+        }
+        @if (Model.CanManageCourse)
+        {
+            <a class="btn btn-primary" asp-controller="Tasks" asp-action="Create" asp-route-courseId="@Model.Course.Id">Добавить задание</a>
+            <a class="btn btn-outline-secondary" asp-action="Assign" asp-route-id="@Model.Course.Id">Назначить студентов</a>
+            <a class="btn btn-outline-secondary" asp-action="Edit" asp-route-id="@Model.Course.Id">Изменить</a>
+            <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@Model.Course.Id">Удалить</a>
+        }
+    </div>
+</div>
+
+<h2 class="h5 mb-3">Ближайшие задания</h2>
+<div class="table-responsive">
+    <table class="table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>Задание</th>
+                <th>Дедлайн</th>
+                <th>Статус</th>
+                <th class="text-end">Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+        @if (Model.Tasks.Count == 0)
+        {
+            <tr>
+                <td colspan="4" class="text-muted">В этом курсе пока нет заданий.</td>
+            </tr>
+        }
+        else
+        {
+            foreach (var task in Model.Tasks)
+            {
+                <tr class="@(task.IsOverdue ? "table-danger" : string.Empty)">
+                    <td>
+                        <div class="fw-semibold">@task.Title</div>
+                        <div class="text-muted small">@task.Description</div>
+                    </td>
+                    <td>@task.Deadline.ToString("dd.MM.yyyy")</td>
+                    <td><span class="badge text-bg-secondary">@task.StatusName</span></td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-outline-primary" asp-controller="Tasks" asp-action="Details" asp-route-id="@task.Id">Открыть</a>
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>
